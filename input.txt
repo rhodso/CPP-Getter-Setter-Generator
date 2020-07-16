@@ -1,0 +1,11 @@
+Replace this text with your variable names and types.
+Semicolons (;) will be removed automatically
+Example:
+
+float x
+float y
+float z
+
+Then run the generator with:
+python3 generator.py
+You will be asked to input a class name

@@ -1,0 +1,23 @@
+For testClass.h:
+
+float x;
+float y;
+float z;
+
+float getX();
+float getY();
+float getZ();
+
+void setX( float _x );
+void setY( float _y );
+void setZ( float _z );
+
+For testClass.cpp:
+
+float testClass::getX(){ return x; }
+float testClass::getY(){ return y; }
+float testClass::getZ(){ return z; }
+
+void testClass::setX( float _x){ x = _x; }
+void testClass::setY( float _y){ y = _y; }
+void testClass::setZ( float _z){ z = _z; }
