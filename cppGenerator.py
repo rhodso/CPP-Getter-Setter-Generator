@@ -1,4 +1,9 @@
 import os
+import re
+
+def fixCase(key):
+    key = re.sub('([a-zA-Z])', lambda x: x.groups()[0].upper(), key, 1)
+    return key
 
 #Create empty dictionary
 varDict = {}
@@ -60,13 +65,13 @@ outFile.write("\n")
 
 #Getters
 for key in keys:
-    outFile.write(varDict[key] + " get" + key.title() + "();\n")
+    outFile.write(varDict[key] + " get" + fixCase(key) + "();\n")
 
 outFile.write("\n")
 
 #Setters
 for key in keys:
-    outFile.write("void set" + key.title() + "( " + varDict[key] + " _" + key + " );\n")
+    outFile.write("void set" + fixCase(key) + "( " + varDict[key] + " _" + key + " );\n")
 
 outFile.write("\n")
 print("Writing variables for .cpp file")
@@ -74,13 +79,13 @@ outFile.write("For " + className + ".cpp:\n\n")
 
 #Getters
 for key in keys:
-    outFile.write(varDict[key] + " " + className + "::get" + key.title() + "(){ return " + key + "; }\n")
+    outFile.write(varDict[key] + " " + className + "::get" + fixCase(key) + "(){ return " + key + "; }\n")
 
 outFile.write("\n")
 
 #Setters
 for key in keys: 
-    outFile.write("void " + className + "::set" + key.title() + "( " + varDict[key] + " _" + key + "){ " + key + " = _" + key + "; }\n")
+    outFile.write("void " + className + "::set" + fixCase(key) + "( " + varDict[key] + " _" + key + "){ " + key + " = _" + key + "; }\n")
 
 print("Done writing to output file, closing file...")
 outFile.close()
