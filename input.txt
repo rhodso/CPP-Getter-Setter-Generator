@@ -1,4 +1,4 @@
-Replace this text with your variable names and types.
+Replace this text with your variable names and types, and add #include <file> to add an include to the auto-generated header file.
 Semicolons (;) will be removed automatically
 Example:
 
@@ -7,5 +7,5 @@ float y
 float z
 
 Then run the generator with:
-python3 generator.py
+python3 fileGenerator.py
 You will be asked to input a class name

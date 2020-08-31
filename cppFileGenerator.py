@@ -7,6 +7,7 @@ def fixCase(key):
 
 #Create empty dictionary
 varDict = {}
+includeList = []
 
 #Get user input for the class name
 className = input("Please enter class name:\n")
@@ -23,16 +24,19 @@ outFile = open((className + ".h"), "w+")
 #Loop to read all lines from the file
 for line in lines:
     line = line.strip()
-    line = line.replace(";","")
     print("Read line \"" + line + "\"")
 
-    #Convert to name and type
-    splitLine = line.split(" ")
-    varName = splitLine[1]
-    varType = splitLine[0]
-    
-    #Add variable name to dictionary
-    varDict[varName] = varType
+    if(line.startswith("#include")):
+        includeList.append(line)
+    else:
+        #Convert to name and type
+        line = line.replace(";","")
+        splitLine = line.split(" ")
+        varName = splitLine[1]
+        varType = splitLine[0]
+        
+        #Add variable name to dictionary
+        varDict[varName] = varType
 
 keys = varDict.keys()
 #Writing header file
@@ -42,15 +46,18 @@ inFile.close()
 print("Finished reading variable list, writing to output file...")
 print("Writing .h file")
 
-
 #Will write the .h file first
 
 #Setting up the header file
 outFile.write("//Header file auto-generated using CPP-Getter-Setter-Generator\n")
 outFile.write("#ifndef " + className.upper() + "_H\n")
 outFile.write("#define " + className.upper() + "_H\n\n")
-outFile.write("//Includes\n\n\n")
-outFile.write("class " + className + " {\n\tpublic:\n")
+outFile.write("//Includes\n")
+
+for i in includeList:
+    outFile.write(i + "\n")
+
+outFile.write("\n\nclass " + className + " {\n\tpublic:\n")
 
 print("Writing Constructor and Destructor")
 
@@ -135,7 +142,7 @@ print("Reformatting input file...")
 os.remove("input.txt")
 inFile = open("input.txt", "w+")
 
-inFile.write("Replace this text with your variable names and types.\nSemicolons (;) will be removed automatically\nExample:\n\nfloat x\nfloat y\nfloat z\n\nThen run the generator with:\npython3 generator.py\nYou will be asked to input a class name")
+inFile.write("Replace this text with your variable names and types, and add #include <file> to add an include to the auto-generated header file.\nSemicolons (;) will be removed automatically\nExample:\n\nfloat x\nfloat y\nfloat z\n\nThen run the generator with:\npython3 fileGenerator.py\nYou will be asked to input a class name")
 inFile.close()
 
 print("Done!")

@@ -3,6 +3,7 @@
 #define TESTCLASS_H
 
 //Includes
+#include <stdio.h>
 
 
 class testClass {
