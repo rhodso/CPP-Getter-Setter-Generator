@@ -8,6 +8,7 @@ def fixCase(key):
 #Create empty dictionary
 varDict = {}
 includeList = []
+methodList = []
 
 #Get user input for the class name
 className = input("Please enter class name:\n")
@@ -28,6 +29,8 @@ for line in lines:
 
     if(line.startswith("#include")):
         includeList.append(line)
+    elif(line.endswith(")")):
+        methodList.append(line)
     else:
         #Convert to name and type
         line = line.replace(";","")
@@ -82,12 +85,15 @@ for key in keys:
 outFile.write("\n")
 
 #Other methods
-outFile.write("\t\t//Other methods\n\n")
+outFile.write("\t\t//Other methods\n")
+for i in methodList:
+    outFile.write("\t\t" + i + ";\n")
+print("Writing other methods to header file")    
 
 print("Writing Variable Declarations")
 
 #Private variables
-outFile.write("\tprivate:\n")
+outFile.write("\n\tprivate:\n")
 outFile.write("\t\t//Variables\n")
 #Variable declarations
 for key in keys:
@@ -116,7 +122,7 @@ outFile.write("#include \"" + className + ".h\"\n")
 
 print("Writing constructors and destructors")
 
-outFile.write("\n\n//Constructor and Destructor\n")
+outFile.write("\n//Constructor and Destructor\n")
 outFile.write("" + className + "::" + className + "(){}\n")
 outFile.write("" + className + "::~" + className + "(){}\n")
 
@@ -132,7 +138,12 @@ outFile.write("\n")
 #Setters
 for key in keys: 
     outFile.write("void " + className + "::set" + fixCase(key) + "( " + varDict[key] + " _" + key + "){ " + key + " = _" + key + "; }\n")
-outFile.write("\n//Other methods")
+
+outFile.write("\n//Other methods\n")
+for i in methodList:
+    splitStr = i.split(" ")
+    outFile.write(splitStr[0] + " " + className + "::" + splitStr[1] + "{}\n")
+print("Writing other methods to source file")
 
 #All done writing files, time to clean up
 print("Done writing to source file, closing file...")
@@ -142,7 +153,10 @@ print("Reformatting input file...")
 os.remove("input.txt")
 inFile = open("input.txt", "w+")
 
-inFile.write("Replace this text with your variable names and types, and add #include <file> to add an include to the auto-generated header file.\nSemicolons (;) will be removed automatically\nExample:\n\nfloat x\nfloat y\nfloat z\n\nThen run the generator with:\npython3 fileGenerator.py\nYou will be asked to input a class name")
+inFile.write("Replace this text with your variable names and types,\n" + 
+            "use returnType methodName() to create a blank method with a return type, \n" + 
+            "and add #include <file> to add an include to the auto-generated header file.\n" + 
+            "Semicolons (;) will be removed automatically\nExample:\n\n#include \"exampleInclude.h\"\nfloat x\nfloat y\nfloat z\nvoid doSomething()\nfloat doSomethingElse()\n\nThen run the generator with:\npython3 fileGenerator.py\nYou will be asked to input a class name\n\nPlease note that #include generation and method generation are only available when using the file generator")
 inFile.close()
 
 print("Done!")

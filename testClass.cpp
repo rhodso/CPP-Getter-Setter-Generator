@@ -3,7 +3,6 @@
 //Includes
 #include "testClass.h"
 
-
 //Constructor and Destructor
 testClass::testClass(){}
 testClass::~testClass(){}
@@ -18,3 +17,5 @@ void testClass::setY( float _y){ y = _y; }
 void testClass::setZ( float _z){ z = _z; }
 
 //Other methods
+void testClass::doSomething(){}
+float testClass::doSomethingElse(){}
