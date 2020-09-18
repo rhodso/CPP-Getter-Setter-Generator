@@ -1,11 +1,18 @@
-Replace this text with your variable names and types, and add #include <file> to add an include to the auto-generated header file.
+Replace this text with your variable names and types,
+use returnType methodName() to create a blank method with a return type, 
+and add #include <file> to add an include to the auto-generated header file.
 Semicolons (;) will be removed automatically
 Example:
 
+#include "exampleInclude.h"
 float x
 float y
 float z
+void doSomething()
+float doSomethingElse()
 
 Then run the generator with:
 python3 fileGenerator.py
 You will be asked to input a class name
+
+Please note that #include generation and method generation are only available when using the file generator

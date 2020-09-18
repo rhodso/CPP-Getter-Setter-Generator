@@ -3,7 +3,7 @@
 #define TESTCLASS_H
 
 //Includes
-#include <stdio.h>
+#include "exampleInclude.h"
 
 
 class testClass {
@@ -22,6 +22,8 @@ class testClass {
 		void setZ( float _z );
 
 		//Other methods
+		void doSomething();
+		float doSomethingElse();
 
 	private:
 		//Variables
