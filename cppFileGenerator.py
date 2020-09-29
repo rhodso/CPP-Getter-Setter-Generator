@@ -1,6 +1,8 @@
 import os
 import re
 
+inFileText = "Replace this text with your variable names and types,\n use returnType methodName() to create a blank method with a return type, \n and add #include <file> to add an include to the auto-generated header file.\n Semicolons (;) will be removed automatically\nExample:\n\n#include \"exampleInclude.h\"\nfloat x\nfloat y\nfloat z\nvoid doSomething()\nfloat doSomethingElse()\n\nThen run the generator with:\npython3 fileGenerator.py\nYou will be asked to input a class name\n\nPlease note that #include generation and method generation are only available when using the file generator"
+
 def fixCase(key):
     key = re.sub('([a-zA-Z])', lambda x: x.groups()[0].upper(), key, 1)
     return key
@@ -23,23 +25,38 @@ if(os.path.exists((className + ".h"))):
 outFile = open((className + ".h"), "w+")
 
 #Loop to read all lines from the file
-for line in lines:
-    line = line.strip()
-    print("Read line \"" + line + "\"")
+try:
+    for line in lines:
+        line = line.strip()
+        print("Read line \"" + line + "\"")
 
-    if(line.startswith("#include")):
-        includeList.append(line)
-    elif(line.endswith(")")):
-        methodList.append(line)
-    else:
-        #Convert to name and type
-        line = line.replace(";","")
-        splitLine = line.split(" ")
-        varName = splitLine[1]
-        varType = splitLine[0]
-        
-        #Add variable name to dictionary
-        varDict[varName] = varType
+        if(line.startswith("#include")):
+            includeList.append(line)
+        elif(line.endswith(")")):
+            methodList.append(line)
+        else:
+            #Convert to name and type
+            line = line.replace(";","")
+            splitLine = line.split(" ")
+            varName = splitLine[1]
+            varType = splitLine[0]
+            
+            #Add variable name to dictionary
+            varDict[varName] = varType
+except:
+    #Print error to user
+    print("\n\n")
+    print("*******************************************************")
+    print(" Input file could not be read successfully,\n did yopu save input.txt before running the generator?")
+    print("*******************************************************\n")
+    
+    #Delete the header file because there was an error
+    if(os.path.exists((className + ".h"))):
+        os.remove((className + ".h"))
+
+    #Exit program
+    exit()
+
 
 keys = varDict.keys()
 #Writing header file
@@ -153,10 +170,7 @@ print("Reformatting input file...")
 os.remove("input.txt")
 inFile = open("input.txt", "w+")
 
-inFile.write("Replace this text with your variable names and types,\n" + 
-            "use returnType methodName() to create a blank method with a return type, \n" + 
-            "and add #include <file> to add an include to the auto-generated header file.\n" + 
-            "Semicolons (;) will be removed automatically\nExample:\n\n#include \"exampleInclude.h\"\nfloat x\nfloat y\nfloat z\nvoid doSomething()\nfloat doSomethingElse()\n\nThen run the generator with:\npython3 fileGenerator.py\nYou will be asked to input a class name\n\nPlease note that #include generation and method generation are only available when using the file generator")
+inFile.write(inFileText)
 inFile.close()
 
 print("Done!")

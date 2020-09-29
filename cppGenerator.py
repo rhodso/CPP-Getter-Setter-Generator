@@ -1,6 +1,8 @@
 import os
 import re
 
+inFileText = "Replace this text with your variable names and types.\nSemicolons (;) will be removed automatically\nExample:\n\nfloat x\nfloat y\nfloat z\n\nThen run the generator with:\npython3 generator.py\nYou will be asked to input a class name"
+
 def fixCase(key):
     key = re.sub('([a-zA-Z])', lambda x: x.groups()[0].upper(), key, 1)
     return key
@@ -21,18 +23,34 @@ if(os.path.exists("output.txt")):
 outFile = open("output.txt", "w+")
 
 #Loop to read all lines from the file
-for line in lines:
-    line = line.strip()
-    line = line.replace(";","")
-    print("Read line \"" + line + "\"")
+try:
+    for line in lines:
+        line = line.strip()
+        line = line.replace(";","")
+        print("Read line \"" + line + "\"")
 
-    #Convert to name and type
-    splitLine = line.split(" ")
-    varName = splitLine[1]
-    varType = splitLine[0]
+        #Convert to name and type
+        splitLine = line.split(" ")
+        varName = splitLine[1]
+        varType = splitLine[0]
     
-    #Add variable name to dictionary
-    varDict[varName] = varType
+        #Add variable name to dictionary
+        varDict[varName] = varType
+
+except:
+    #Print error to user
+    print("\n\n")
+    print("*******************************************************")
+    print(" Input file could not be read successfully,\n did yopu save input.txt before running the generator?")
+    print("*******************************************************\n")
+    
+    #Clear output file
+    if(os.path.exists("output.txt")):
+        os.remove("output.txt")
+    outFile = open("output.txt", "w+")
+
+    #Exit program
+    exit()
 
 #All vars are in the dictionary, create getters and setters
 
@@ -94,7 +112,7 @@ print("Reformatting input file...")
 os.remove("input.txt")
 inFile = open("input.txt", "w+")
 
-inFile.write("Replace this text with your variable names and types.\nSemicolons (;) will be removed automatically\nExample:\n\nfloat x\nfloat y\nfloat z\n\nThen run the generator with:\npython3 generator.py\nYou will be asked to input a class name")
+inFile.write(inFileText)
 inFile.close()
 
 print("Done!")
