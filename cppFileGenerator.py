@@ -135,7 +135,7 @@ outFile = open((className + ".cpp"), "w+")
 #Now to write the source file
 outFile.write("//Source file auto-generated using CPP-Getter-Setter-Generator\n\n")
 outFile.write("//Includes\n")
-outFile.write("#include \"" + className + ".h\"\n")
+outFile.write("#include <" + className + ".h>\n")
 
 print("Writing constructors and destructors")
 

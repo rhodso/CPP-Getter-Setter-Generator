@@ -3,7 +3,7 @@
 #define TESTCLASS_H
 
 //Includes
-#include "exampleInclude.h"
+#include <exampleInclude.h>
 
 
 class testClass {
