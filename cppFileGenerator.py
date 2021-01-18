@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 
 inFileText = "Replace this text with your variable names and types,\n use returnType methodName() to create a blank method with a return type, \n and add #include <file> to add an include to the auto-generated header file.\n Semicolons (;) will be removed automatically\nExample:\n\n#include \"exampleInclude.h\"\nfloat x\nfloat y\nfloat z\nvoid doSomething()\nfloat doSomethingElse()\n\nThen run the generator with:\npython3 fileGenerator.py\nYou will be asked to input a class name\n\nPlease note that #include generation and method generation are only available when using the file generator"
 
@@ -12,9 +13,10 @@ varDict = {}
 includeList = []
 methodList = []
 
-#Get user input for the class name
-className = input("Please enter class name:\n")
-print("\n")
+#Get class name from command line args, default to "class" if not specified
+className = "class"
+if(len(sys.argv) == 2):
+    className = sys.argv[1]
 
 #Read input
 inFile = open("input.txt","r")
