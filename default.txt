@@ -1,0 +1,6 @@
+#include "exampleInclude.h"
+float x
+float y
+float z
+void doSomething()
+float doSomethingElse()
