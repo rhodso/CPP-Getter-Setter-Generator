@@ -26,14 +26,6 @@ float testMethod(float testInput, int testInput2)
 ```
 This input produces the testClass.h and testClass.cpp files when using the file generator. 
 
-Using the input:  
-```
-float x  
-float y  
-float z  
-```
-produces the output shown in output.txt 
- 
 # Running the generator: 
 Run the generator of your choice with:  
 python3 cppGenerator.py or python3 cppFileGenerator.py  
