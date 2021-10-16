@@ -1,7 +1,7 @@
 import os
 import re
 
-inFileText = "Replace this text with your variable names and types,\n use returnType methodName() to create a blank method with a return type, \n and add #include <file> to add an include to the auto-generated header file.\n Semicolons (;) will be removed automatically\nExample:\n\n#include \"exampleInclude.h\"\nfloat x\nfloat y\nfloat z\nvoid doSomething()\nfloat doSomethingElse()\n\nThen run the generator with:\npython3 fileGenerator.py\nYou will be asked to input a class name\n\nPlease note that #include generation and method generation are only available when using the file generator"
+inFileText = "Replace this text with your variable names and types,\nuse returnType methodName() to create a blank method with a return type, \nand add #include <file> to add an include to the auto-generated header file.\nSemicolons (;) will be removed automatically\nExample:\n\n#include \"exampleInclude.h\"\nfloat x\nfloat y\nfloat z\nvoid doSomething()\nfloat doSomethingElse()\n\nThen run the generator with:\npython3 fileGenerator.py\nYou will be asked to input a class name\n\nPlease note that #include generation and method generation are only available when using the file generator"
 
 def fixCase(key):
     key = re.sub('([a-zA-Z])', lambda x: x.groups()[0].upper(), key, 1)
@@ -14,6 +14,7 @@ methodList = []
 
 #Get user input for the class name
 className = input("Please enter class name:\n")
+#className = "testClass"
 print("\n")
 
 #Read input
@@ -47,7 +48,7 @@ except:
     #Print error to user
     print("\n\n")
     print("*******************************************************")
-    print(" Input file could not be read successfully,\n did yopu save input.txt before running the generator?")
+    print(" Input file could not be read successfully,\n did you save input.txt before running the generator?")
     print("*******************************************************\n")
     
     #Delete the header file because there was an error
@@ -56,7 +57,6 @@ except:
 
     #Exit program
     exit()
-
 
 keys = varDict.keys()
 #Writing header file
@@ -84,7 +84,23 @@ print("Writing Constructor and Destructor")
 #Constructor and Destructor
 outFile.write("\t\t//Constructor and Destructor\n")
 outFile.write("\t\t" + className + "();\n")
-outFile.write("\t\t~" + className + "();\n\n")
+outFile.write("\t\t~" + className + "();\n")
+outFile.write("\n\t\t//Overloaded constructors\n")
+
+#Setup for writing constructors
+keysList = list(keys)
+count = 0
+
+#Write constructors
+for key in keysList:
+    count += 1
+    outFile.write("\t\t" + className + "(")
+    for i in range(count):
+        outFile.write(varDict[keysList[i]] + " _" + keysList[i])
+        if(i != count-1):
+            outFile.write(", ")
+    outFile.write(");\n")
+outFile.write("\n")
 
 print("Writing Getters and Setters")
 
@@ -142,6 +158,28 @@ print("Writing constructors and destructors")
 outFile.write("\n//Constructor and Destructor\n")
 outFile.write("" + className + "::" + className + "(){}\n")
 outFile.write("" + className + "::~" + className + "(){}\n")
+
+outFile.write("\n//Overloaded constructors\n")
+
+#Setup for writing constructors
+keysList = list(keys)
+count = 0
+
+#Write constructors
+for key in keysList:
+    count += 1
+    outFile.write("" + className + "::" + className + "(")
+    for i in range(count):
+        outFile.write(varDict[keysList[i]] + " _" + keysList[i])
+        if(i != count-1):
+            outFile.write(", ")
+    outFile.write("){\n")
+
+    for i in range(count):
+        outFile.write("\t" + 
+        keysList[i] + " = _" + keysList[i])
+        outFile.write(";\n")
+    outFile.write("}\n")
 
 print("Writing Getters and setters")
 
