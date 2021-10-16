@@ -14,12 +14,15 @@ Please note that #include generation and method generation are only available wh
  
 Example input: 
  
-#include "exampleInclude.h"  
-float x  
-float y  
-float z   
-void doSomething()  
-float doSomethingElse()  
+#include "exampleInclude.h"
+float x
+float y
+float z
+void doSomething()
+float doSomethingElse()
+void voidTestMethod(float testInput)
+float testMethod(float testInput)
+float testMethod(float testInput, int testInput2)
  
 This input produces the testClass.h and testClass.cpp files when using the file generator. 
  
