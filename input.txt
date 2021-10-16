@@ -10,6 +10,9 @@ float y
 float z
 void doSomething()
 float doSomethingElse()
+void voidTestMethod(float testInput)
+float testMethod(float testInput)
+float testMethod(float testInput, int testInput2)
 
 Then run the generator with:
 python3 fileGenerator.py

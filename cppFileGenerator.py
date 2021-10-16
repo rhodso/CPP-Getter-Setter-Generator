@@ -1,7 +1,7 @@
 import os
 import re
 
-inFileText = "Replace this text with your variable names and types,\nuse returnType methodName() to create a blank method with a return type, \nand add #include <file> to add an include to the auto-generated header file.\nSemicolons (;) will be removed automatically\nExample:\n\n#include \"exampleInclude.h\"\nfloat x\nfloat y\nfloat z\nvoid doSomething()\nfloat doSomethingElse()\n\nThen run the generator with:\npython3 fileGenerator.py\nYou will be asked to input a class name\n\nPlease note that #include generation and method generation are only available when using the file generator"
+inFileText = "Replace this text with your variable names and types,\nuse returnType methodName() to create a blank method with a return type, \nand add #include <file> to add an include to the auto-generated header file.\nSemicolons (;) will be removed automatically\nExample:\n\n#include \"exampleInclude.h\"\nfloat x\nfloat y\nfloat z\nvoid doSomething()\nfloat doSomethingElse()\nvoid voidTestMethod(float testInput)\nfloat testMethod(float testInput)\nfloat testMethod(float testInput, int testInput2)\n\nThen run the generator with:\npython3 fileGenerator.py\nYou will be asked to input a class name\n\nPlease note that #include generation and method generation are only available when using the file generator"
 
 def fixCase(key):
     key = re.sub('([a-zA-Z])', lambda x: x.groups()[0].upper(), key, 1)
@@ -192,13 +192,19 @@ outFile.write("\n")
 
 #Setters
 for key in keys: 
-    outFile.write("void " + className + "::set" + fixCase(key) + "( " + varDict[key] + " _" + key + "){ " + key + " = _" + key + "; }\n")
+    outFile.write("void " + className + "::set" + fixCase(key) + "( " + varDict[key] + " _" + key + " ){ " + key + " = _" + key + "; }\n")
 
+#Write other methods
+print("Writing other methods to source file")
 outFile.write("\n//Other methods\n")
 for i in methodList:
     splitStr = i.split(" ")
-    outFile.write(splitStr[0] + " " + className + "::" + splitStr[1] + "{}\n")
-print("Writing other methods to source file")
+    outFile.write(splitStr[0] + " " + className + "::" + splitStr[1])
+    for i in range(len(splitStr)):
+        if(i < 2):
+            continue
+        outFile.write(" " + splitStr[i])
+    outFile.write("{\n\t\n}\n")
 
 #All done writing files, time to clean up
 print("Done writing to source file, closing file...")

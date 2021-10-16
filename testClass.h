@@ -29,6 +29,9 @@ class testClass {
 		//Other methods
 		void doSomething();
 		float doSomethingElse();
+		void voidTestMethod(float testInput);
+		float testMethod(float testInput);
+		float testMethod(float testInput, int testInput2);
 
 	private:
 		//Variables

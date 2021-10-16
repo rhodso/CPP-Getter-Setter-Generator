@@ -26,10 +26,23 @@ float testClass::getX(){ return x; }
 float testClass::getY(){ return y; }
 float testClass::getZ(){ return z; }
 
-void testClass::setX( float _x){ x = _x; }
-void testClass::setY( float _y){ y = _y; }
-void testClass::setZ( float _z){ z = _z; }
+void testClass::setX( float _x ){ x = _x; }
+void testClass::setY( float _y ){ y = _y; }
+void testClass::setZ( float _z ){ z = _z; }
 
 //Other methods
-void testClass::doSomething(){}
-float testClass::doSomethingElse(){}
+void testClass::doSomething(){
+	
+}
+float testClass::doSomethingElse(){
+	
+}
+void testClass::voidTestMethod(float testInput){
+	
+}
+float testClass::testMethod(float testInput){
+	
+}
+float testClass::testMethod(float testInput, int testInput2){
+	
+}
