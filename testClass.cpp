@@ -1,11 +1,25 @@
 //Source file auto-generated using CPP-Getter-Setter-Generator
 
 //Includes
-#include "testClass.h"
+#include <testClass.h>
 
 //Constructor and Destructor
 testClass::testClass(){}
 testClass::~testClass(){}
+
+//Overloaded constructors
+testClass::testClass(float _x){
+	x = _x;
+}
+testClass::testClass(float _x, float _y){
+	x = _x;
+	y = _y;
+}
+testClass::testClass(float _x, float _y, float _z){
+	x = _x;
+	y = _y;
+	z = _z;
+}
 
 //Getters and Setters
 float testClass::getX(){ return x; }

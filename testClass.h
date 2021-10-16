@@ -3,7 +3,7 @@
 #define TESTCLASS_H
 
 //Includes
-#include <exampleInclude.h>
+#include "exampleInclude.h"
 
 
 class testClass {
@@ -11,6 +11,11 @@ class testClass {
 		//Constructor and Destructor
 		testClass();
 		~testClass();
+
+		//Overloaded constructors
+		testClass(float _x);
+		testClass(float _x, float _y);
+		testClass(float _x, float _y, float _z);
 
 		//Getters and Setters
 		float getX();
